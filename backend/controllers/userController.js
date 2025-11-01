@@ -40,7 +40,6 @@ const login = async (req, res) => {
 };
 
 const getMe = async (req, res) => {
-  // auth middleware sets req.user
   res.json({ user: req.user });
 };
 

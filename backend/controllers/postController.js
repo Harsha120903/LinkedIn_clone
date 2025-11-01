@@ -5,7 +5,6 @@ const createPost = async (req, res) => {
   try {
     if (!text) return res.status(400).json({ message: 'Post text required' });
     const post = await Post.create({ user: req.user._id, text });
-    // populate user name before returning
     await post.populate('user', 'name');
     res.json(post);
   } catch (err) {

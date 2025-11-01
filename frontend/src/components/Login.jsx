@@ -13,17 +13,13 @@ const Login = ({ onLogin }) => {
     setErr('');
 
     try {
-      // ✅ Login request
       const res = await api.post('/users/login', { email, password });
 
-      // ✅ Save both token & user info
       localStorage.setItem('token', res.data.token);
       localStorage.setItem('user', JSON.stringify(res.data.user));
 
-      // ✅ Reload user info into state
       onLogin && onLogin();
 
-      // ✅ Redirect to home
       navigate('/');
     } catch (error) {
       setErr(error.response?.data?.message || 'Login failed');
