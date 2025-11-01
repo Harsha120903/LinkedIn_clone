@@ -7,8 +7,14 @@ dotenv.config();
 connectDB();
 
 const app = express();
-app.use(cors());
-app.use(express.json());
+app.use(cors({
+  origin: [
+    'http://localhost:5173', 
+    'https://linkedin-clone-frontend-otwq.onrender.com' 
+  ],
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  credentials: true
+}));app.use(express.json());
 
 // Routes
 app.use('/api/users', require('./routes/userRoutes'));
