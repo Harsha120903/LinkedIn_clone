@@ -8,7 +8,8 @@ connectDB();
 
 const app = express();
 app.use(cors());
-
+app.use(express.json()); 
+app.use(express.urlencoded({ extended: true }));
 // Routes
 app.use('/api/users', require('./routes/userRoutes'));
 app.use('/api/posts', require('./routes/postRoutes'));
