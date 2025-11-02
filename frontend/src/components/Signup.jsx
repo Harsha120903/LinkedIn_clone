@@ -30,7 +30,7 @@ const Signup = ({ onSignup }) => {
         <input className="input" value={name} onChange={e => setName(e.target.value)} placeholder="Full name" />
         <input className="input" value={email} onChange={e => setEmail(e.target.value)} placeholder="Email" />
         <input className="input" type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="Password" />
-        <button className="btn" type="submit">Create account</button>
+        <button className="btn btn-primary" type="submit">Create account</button>
       </form>
     </div>
   );
