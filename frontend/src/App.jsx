@@ -9,24 +9,54 @@ import api from './utils/api';
 
 function App() {
   const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
   const loadUser = async () => {
+    // Check if token exists before making API call
+    const token = localStorage.getItem('token');
+    
+    if (!token) {
+      setLoading(false);
+      setUser(null);
+      return;
+    }
+
     try {
       const res = await api.get('/users/me');
       setUser(res.data.user);
-    } catch {
+    } catch (error) {
+      // If token is invalid, remove it
+      console.log('Authentication failed - clearing token');
+      localStorage.removeItem('token');
+      localStorage.removeItem('user');
       setUser(null);
+    } finally {
+      setLoading(false);
     }
   };
 
-  useEffect(() => { loadUser(); }, []);
+  useEffect(() => { 
+    loadUser(); 
+  }, []);
 
   const handleLogout = () => {
     localStorage.removeItem('token');
+    localStorage.removeItem('user');
     setUser(null);
     navigate('/login');
   };
+
+  // Show loading state
+  if (loading) {
+    return (
+      <div className="container" style={{ marginTop: '50px' }}>
+        <div className="card">
+          <h4>Loading...</h4>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div>
